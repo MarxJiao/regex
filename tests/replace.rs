@@ -12,18 +12,11 @@ macro_rules! replace(
 replace!(first, replace, r"[0-9]", "age: 26", t!("Z"), "age: Z6");
 replace!(plus, replace, r"[0-9]+", "age: 26", t!("Z"), "age: Z");
 replace!(all, replace_all, r"[0-9]", "age: 26", t!("Z"), "age: ZZ");
-replace!(
-    groups,
-    replace,
-    r"(?-u)(\S+)\s+(\S+)",
-    "w1 w2",
-    t!("$2 $1"),
-    "w2 w1"
-);
+replace!(groups, replace, r"(\S+)\s+(\S+)", "w1 w2", t!("$2 $1"), "w2 w1");
 replace!(
     double_dollar,
     replace,
-    r"(?-u)(\S+)\s+(\S+)",
+    r"(\S+)\s+(\S+)",
     "w1 w2",
     t!("$2 $$1"),
     "w2 $1"
@@ -33,7 +26,7 @@ replace!(
 replace!(
     named,
     replace_all,
-    r"(?-u)(?P<first>\S+)\s+(?P<last>\S+)(?P<space>\s*)",
+    r"(?P<first>\S+)\s+(?P<last>\S+)(?P<space>\s*)",
     "w1 w2 w3 w4",
     t!("$last $first$space"),
     "w2 w1 w4 w3"
@@ -48,26 +41,12 @@ replace!(
 );
 replace!(number_hypen, replace, r"(.)(.)", "ab", t!("$1-$2"), "a-b");
 // replace!(number_underscore, replace, r"(.)(.)", "ab", t!("$1_$2"), "a_b");
-replace!(
-    simple_expand,
-    replace_all,
-    r"(?-u)(\w) (\w)",
-    "a b",
-    t!("$2 $1"),
-    "b a"
-);
-replace!(
-    literal_dollar1,
-    replace_all,
-    r"(?-u)(\w+) (\w+)",
-    "a b",
-    t!("$$1"),
-    "$1"
-);
+replace!(simple_expand, replace_all, r"(\w) (\w)", "a b", t!("$2 $1"), "b a");
+replace!(literal_dollar1, replace_all, r"(\w+) (\w+)", "a b", t!("$$1"), "$1");
 replace!(
     literal_dollar2,
     replace_all,
-    r"(?-u)(\w+) (\w+)",
+    r"(\w+) (\w+)",
     "a b",
     t!("$2 $$c $1"),
     "b $c a"
@@ -75,7 +54,7 @@ replace!(
 replace!(
     no_expand1,
     replace,
-    r"(?-u)(\S+)\s+(\S+)",
+    r"(\S+)\s+(\S+)",
     "w1 w2",
     no_expand!("$2 $1"),
     "$2 $1"
@@ -83,7 +62,7 @@ replace!(
 replace!(
     no_expand2,
     replace,
-    r"(?-u)(\S+)\s+(\S+)",
+    r"(\S+)\s+(\S+)",
     "w1 w2",
     no_expand!("$$1"),
     "$$1"
