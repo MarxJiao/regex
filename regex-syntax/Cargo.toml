@@ -13,7 +13,8 @@ edition = "2021"
 # Features are documented in the "Crate features" section of the crate docs:
 # https://docs.rs/regex-syntax/*/#crate-features
 [features]
-default = ["unicode"]
+default = ["std", "unicode"]
+std = []
 
 unicode = [
   "unicode-age",

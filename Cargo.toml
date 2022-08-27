@@ -14,7 +14,8 @@ finite automata and guarantees linear time matching on all inputs.
 categories = ["text-processing"]
 autotests = false
 exclude = ["/scripts/*", "/.github/*"]
-edition = "2018"
+edition = "2021"
+resolver = "2"
 
 [workspace]
 members = [
